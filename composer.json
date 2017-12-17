@@ -1,0 +1,21 @@
+{
+    "name": "rhiaro/probe",
+    "version": "0.0.1",
+    "license": "MIT",
+    "require": {
+      "rmccue/requests": ">=1.0",
+      "phpish/link_header": "dev-master",
+      "ml/json-ld": "1.*"
+    },
+    "autoload": {
+      "files": [
+          "src/probe.php"
+        ]    
+    },
+    "authors": [
+      {
+        "name": "Amy Guy",
+        "homepage": "https://rhiaro.co.uk/"
+      }
+    ]
+}
