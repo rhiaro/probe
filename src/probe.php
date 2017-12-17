@@ -1,9 +1,8 @@
 <?php
-
 namespace Rhiaro;
 
+use EasyRdf_Graph;
 use Requests;
-use ML\JsonLD;
 use phpish\link_header;
 
 /**
@@ -32,8 +31,10 @@ function endpoint($url, $endpoint){
 
     // Parse as RDF and look for predicate
     $response = Requests::get($url, array('Accept' => 'application/ld+json'));
-    $ep = from_jsonld($response->body, $endpoint);
-
+    $ep = from_jsonld($response->body, $url, $endpoint);
+    if(isset($ep) && !empty($ep)){
+      return $ep;
+    }
 }
 
 function from_http_headers($headers, $endpoint){
@@ -68,10 +69,13 @@ function from_json($json, $endpoint){
     return false;
 }
 
-function from_jsonld($json, $endpoint){
-    $doc = JsonLD::getDocument($json);
-    $graph = $doc->getGraph();
-    var_dump($graph);
+function from_jsonld($json, $subject, $endpoint){
+    $graph = new EasyRdf_Graph($subject);
+    $graph->parse($json, 'jsonld', $subject);
+    $r = $graph->resource($subject);
+    echo $r->dump();
+    var_dump($r->get($endpoint));
+    // return $ep;
 }
 
 function from_rdf(){

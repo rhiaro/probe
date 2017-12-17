@@ -5,6 +5,7 @@
     "require": {
       "rmccue/requests": ">=1.0",
       "phpish/link_header": "dev-master",
+      "easyrdf/easyrdf": "*",
       "ml/json-ld": "1.*"
     },
     "autoload": {
